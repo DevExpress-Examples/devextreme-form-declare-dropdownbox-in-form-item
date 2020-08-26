@@ -1,0 +1,78 @@
+@using SampleApp.Models
+@model Employee
+@(Html.DevExtreme().Form<Employee>()
+    .FormData(Model)
+    .ValidationGroup("formGroup")
+    .Items(items => {
+        items.AddSimpleFor(m => m.Owner);
+        items.AddSimpleFor(m => m.Status).Template(@<text>
+            @(Html.DevExtreme().DropDownBoxFor(m => m.Status)
+                .DataSource(new JS("statuses"))
+                .OnValueChanged("function(e) { valueChanged(e, component, dataField); }")
+                .ShowClearButton(true)
+                .ValueExpr("Id")
+                .DisplayExpr("Name")
+                .ContentTemplate(new TemplateName("StatusEmbeddedDataGrid"))
+            )
+        </text>);
+        items.AddButton()
+            .HorizontalAlignment(HorizontalAlignment.Left)
+            .ButtonOptions(b => b.Text("Validate")
+                .Type(ButtonType.Success)
+            .OnClick("validateClick")
+            );
+    })
+)
+
+@using (Html.DevExtreme().NamedTemplate("StatusEmbeddedDataGrid"))
+{
+    @(Html.DevExtreme().DataGrid()
+        .DataSource(new JS(@"component.option('dataSource')"))
+        .Height(250)
+        .KeyExpr("Id")
+        .Selection(s => s.Mode(SelectionMode.Single))
+        .SelectedRowKeys(new JS(@"[component.option(""value"")]"))
+        .OnSelectionChanged(@<text>
+            function(selectedItems) {
+                var keys = selectedItems.selectedRowKeys;
+                component.option("value", selectedItems.selectedRowKeys[0]);
+            }
+        </text>)
+    )
+}
+
+
+<script>
+    function valueChanged(e, component, dataField) {
+        component.updateData(dataField, e.value);
+    }
+
+    function validateClick(e) {
+        var validationResult = DevExpress.validationEngine.validateGroup("formGroup");
+        if (!validationResult.isValid)
+            alert("dxForm is invalid");
+    }
+
+    var statuses = [
+        {
+            Id: 1,
+            Name: "Not Started"
+        },
+        {
+            Id: 2,
+            Name: "In Progress"
+        },
+        {
+            Id: 3,
+            Name: "Deferred"
+        },
+        {
+            Id: 4,
+            Name: "Need Assistance"
+        },
+        {
+            Id: 5,
+            Name: "Completed"
+        }
+    ];
+</script>
