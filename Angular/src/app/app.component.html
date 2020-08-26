@@ -1,0 +1,23 @@
+<dx-form [formData]="employee" validationGroup="formGroup">
+  <dxi-item dataField="owner">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-item>
+  <dxi-item dataField="status" template="statusTemplate"></dxi-item>
+  <dxi-item itemType="button" horizontalAlignment="left"
+    [buttonOptions]="{ text: 'Validate', type: 'success', onClick: validateClick }"></dxi-item>
+
+  <div *dxTemplate="let cellInfo of 'statusTemplate'">
+    <dx-drop-down-box [dataSource]="statuses" [(value)]="employee.status" [showClearButton]="true" valueExpr="id"
+      displayExpr="name">
+      <div *dxTemplate="let data of 'content'">
+        <dx-data-grid [dataSource]="statuses" [height]="250" keyExpr="id" [(selectedRowKeys)]="employee.status">
+          <dxo-selection mode="single"></dxo-selection>
+        </dx-data-grid>
+      </div>
+      <dx-validator validationGroup="formGroup">
+        <dxi-validation-rule type="required" message="Status is required">
+        </dxi-validation-rule>
+      </dx-validator>
+    </dx-drop-down-box>
+  </div>
+</dx-form>
