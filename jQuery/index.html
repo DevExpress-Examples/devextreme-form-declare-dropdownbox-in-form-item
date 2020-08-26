@@ -41,7 +41,6 @@
                     validationRules: [{type: "required"}]
                 },{
                         dataField: "status",
-                        // to show '*' in label
                         validationRules: statusValidationRules,
                         template: function (data, itemElement) {
                             $("<div>")
@@ -67,10 +66,6 @@
                                     },
                                     valueExpr: "id",
                                     displayExpr: "name"
-                                })
-                                .dxValidator({
-                                    validationGroup: "formGroup",
-                                    validationRules: statusValidationRules
                                 })
                                 .appendTo(itemElement);
                         }
