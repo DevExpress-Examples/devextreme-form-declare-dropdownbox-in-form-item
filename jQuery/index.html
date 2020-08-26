@@ -30,61 +30,61 @@
                 owner: "John Heart",
                 status: 1
             };
-            
-            let statusValidationRules = [{type: "required", message: "Status is required"}]
+
+            let statusValidationRules = [{ type: "required", message: "Status is required" }]
 
             $("#form").dxForm({
                 formData: employee,
                 validationGroup: "formGroup",
                 items: [{
                     dataField: "owner",
-                    validationRules: [{type: "required"}]
-                },{
-                        dataField: "status",
-                        validationRules: statusValidationRules,
-                        template: function (data, itemElement) {
-                            $("<div>")
-                                .dxDropDownBox({
-                                    dataSource: statuses,
-                                    value: data.editorOptions.value,
-                                    showClearButton: true,
-                                    onValueChanged: function(e) {
-                                        data.component.updateData(data.dataField, e.value);
-                                    },
-                                    contentTemplate: function ({ component, value }) {
-                                        return $("<div>").dxDataGrid({
-                                            dataSource: component.option("dataSource"),
-                                            height: 250,
-                                            keyExpr: "id",
-                                            selection: { mode: "single" },
-                                            selectedRowKeys: value,
-                                            onSelectionChanged: function (e) {
-                                                component.option("value", e.selectedRowKeys[0]);
-                                                component.close();
-                                            }
-                                        });
-                                    },
-                                    valueExpr: "id",
-                                    displayExpr: "name"
-                                })
-                                .appendTo(itemElement);
-                        }
-                    },
-                    {
-                        itemType: "button",
-                        horizontalAlignment: "left",
-                        buttonOptions: {
-                            text: "Validate",
-                            type: "success",
-                            onClick: function (e) {
-                                var validationResult = DevExpress.validationEngine.validateGroup(
-                                    "formGroup"
-                                );
+                    validationRules: [{ type: "required" }]
+                }, {
+                    dataField: "status",
+                    validationRules: statusValidationRules,
+                    template: function (data, itemElement) {
+                        $("<div>")
+                            .dxDropDownBox({
+                                dataSource: statuses,
+                                value: data.editorOptions.value,
+                                showClearButton: true,
+                                onValueChanged: function (e) {
+                                    data.component.updateData(data.dataField, e.value);
+                                },
+                                contentTemplate: function ({ component, value }) {
+                                    return $("<div>").dxDataGrid({
+                                        dataSource: component.option("dataSource"),
+                                        height: 250,
+                                        keyExpr: "id",
+                                        selection: { mode: "single" },
+                                        selectedRowKeys: value,
+                                        onSelectionChanged: function (e) {
+                                            component.option("value", e.selectedRowKeys[0]);
+                                            component.close();
+                                        }
+                                    });
+                                },
+                                valueExpr: "id",
+                                displayExpr: "name"
+                            })
+                            .appendTo(itemElement);
+                    }
+                },
+                {
+                    itemType: "button",
+                    horizontalAlignment: "left",
+                    buttonOptions: {
+                        text: "Validate",
+                        type: "success",
+                        onClick: function (e) {
+                            var validationResult = DevExpress.validationEngine.validateGroup(
+                                "formGroup"
+                            );
 
-                                if (!validationResult.isValid) alert("dxForm is invalid");
-                            }
+                            if (!validationResult.isValid) alert("dxForm is invalid");
                         }
                     }
+                }
                 ]
             });
         });
@@ -116,7 +116,9 @@
 </head>
 
 <body class="dx-viewport">
-    <div class="long-title"><h3>Employee Details</h3></div>
+    <div class="long-title">
+        <h3>Employee Details</h3>
+    </div>
     <div id="form-container">
         <div id="form"></div>
     </div>
