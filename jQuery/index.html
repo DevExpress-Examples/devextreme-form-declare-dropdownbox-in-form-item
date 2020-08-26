@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/20.1.6/js/dx.all.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/20.1.6/css/dx.common.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/20.1.6/css/dx.light.css" />
+    <style>
+        #form-container {
+            margin: 10px 10px 30px;
+        }
+
+        #button {
+            float: right;
+            margin-top: 20px;
+        }
+
+        .long-title h3 {
+            font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+            font-weight: 200;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        $(function () {
+            let employee = {
+                owner: "John Heart",
+                status: 1
+            };
+            
+            let statusValidationRules = [{type: "required", message: "Status is required"}]
+
+            $("#form").dxForm({
+                formData: employee,
+                validationGroup: "formGroup",
+                items: [{
+                    dataField: "owner",
+                    validationRules: [{type: "required"}]
+                },{
+                        dataField: "status",
+                        // to show '*' in label
+                        validationRules: statusValidationRules,
+                        template: function (data, itemElement) {
+                            $("<div>")
+                                .dxDropDownBox({
+                                    dataSource: statuses,
+                                    value: data.editorOptions.value,
+                                    showClearButton: true,
+                                    onValueChanged: function(e) {
+                                        data.component.updateData(data.dataField, e.value);
+                                    },
+                                    contentTemplate: function ({ component, value }) {
+                                        return $("<div>").dxDataGrid({
+                                            dataSource: component.option("dataSource"),
+                                            height: 250,
+                                            keyExpr: "id",
+                                            selection: { mode: "single" },
+                                            selectedRowKeys: value,
+                                            onSelectionChanged: function (e) {
+                                                component.option("value", e.selectedRowKeys[0]);
+                                                component.close();
+                                            }
+                                        });
+                                    },
+                                    valueExpr: "id",
+                                    displayExpr: "name"
+                                })
+                                .dxValidator({
+                                    validationGroup: "formGroup",
+                                    validationRules: statusValidationRules
+                                })
+                                .appendTo(itemElement);
+                        }
+                    },
+                    {
+                        itemType: "button",
+                        horizontalAlignment: "left",
+                        buttonOptions: {
+                            text: "Validate",
+                            type: "success",
+                            onClick: function (e) {
+                                var validationResult = DevExpress.validationEngine.validateGroup(
+                                    "formGroup"
+                                );
+
+                                if (!validationResult.isValid) alert("dxForm is invalid");
+                            }
+                        }
+                    }
+                ]
+            });
+        });
+
+        var statuses = [
+            {
+                id: 1,
+                name: "Not Started"
+            },
+            {
+                id: 2,
+                name: "In Progress"
+            },
+            {
+                id: 3,
+                name: "Deferred"
+            },
+            {
+                id: 4,
+                name: "Need Assistance"
+            },
+            {
+                id: 5,
+                name: "Completed"
+            }
+        ];
+
+    </script>
+</head>
+
+<body class="dx-viewport">
+    <div class="long-title"><h3>Employee Details</h3></div>
+    <div id="form-container">
+        <div id="form"></div>
+    </div>
+</body>
+
+</html>
