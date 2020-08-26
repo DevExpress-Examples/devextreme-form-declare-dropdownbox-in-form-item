@@ -31,18 +31,14 @@
                 status: 1
             };
 
-            let statusValidationRules = [{ type: "required", message: "Status is required" }]
-
             $("#form").dxForm({
                 formData: employee,
                 validationGroup: "formGroup",
                 items: [{
                     dataField: "owner",
-<<<<<<< HEAD
                     validationRules: [{ type: "required" }]
                 }, {
                     dataField: "status",
-                    validationRules: statusValidationRules,
                     template: function (data, itemElement) {
                         $("<div>")
                             .dxDropDownBox({
@@ -68,6 +64,10 @@
                                 valueExpr: "id",
                                 displayExpr: "name"
                             })
+                            .dxValidator({
+                                validationGroup: "formGroup",
+                                validationRules: [{ type: "required", message: "Status is required" }]
+                            })
                             .appendTo(itemElement);
                     }
                 },
@@ -81,55 +81,6 @@
                             var validationResult = DevExpress.validationEngine.validateGroup(
                                 "formGroup"
                             );
-=======
-                    validationRules: [{type: "required"}]
-                },{
-                        dataField: "status",
-                        // to show '*' in label
-                        validationRules: statusValidationRules,
-                        template: function (data, itemElement) {
-                            $("<div>")
-                                .dxDropDownBox({
-                                    dataSource: statuses,
-                                    value: data.editorOptions.value,
-                                    showClearButton: true,
-                                    onValueChanged: function(e) {
-                                        data.component.updateData(data.dataField, e.value);
-                                    },
-                                    contentTemplate: function ({ component, value }) {
-                                        return $("<div>").dxDataGrid({
-                                            dataSource: component.option("dataSource"),
-                                            height: 250,
-                                            keyExpr: "id",
-                                            selection: { mode: "single" },
-                                            selectedRowKeys: value,
-                                            onSelectionChanged: function (e) {
-                                                component.option("value", e.selectedRowKeys[0]);
-                                                component.close();
-                                            }
-                                        });
-                                    },
-                                    valueExpr: "id",
-                                    displayExpr: "name"
-                                })
-                                .dxValidator({
-                                    validationGroup: "formGroup",
-                                    validationRules: statusValidationRules
-                                })
-                                .appendTo(itemElement);
-                        }
-                    },
-                    {
-                        itemType: "button",
-                        horizontalAlignment: "left",
-                        buttonOptions: {
-                            text: "Validate",
-                            type: "success",
-                            onClick: function (e) {
-                                var validationResult = DevExpress.validationEngine.validateGroup(
-                                    "formGroup"
-                                );
->>>>>>> parent of 374cd56... Removed validator from template
 
                             if (!validationResult.isValid) alert("dxForm is invalid");
                         }
