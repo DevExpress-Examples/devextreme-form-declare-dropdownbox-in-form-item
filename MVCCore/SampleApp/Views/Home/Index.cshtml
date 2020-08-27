@@ -5,7 +5,9 @@
     .ValidationGroup("formGroup")
     .Items(items => {
         items.AddSimpleFor(m => m.Owner);
-        items.AddSimpleFor(m => m.Status).Template(@<text>
+        items.AddSimpleFor(m => m.Status)
+            .IsRequired(true)
+            .Template(@<text>
             @(Html.DevExtreme().DropDownBoxFor(m => m.Status)
                 .DataSource(new JS("statuses"))
                 .OnValueChanged("function(e) { valueChanged(e, component, dataField); }")

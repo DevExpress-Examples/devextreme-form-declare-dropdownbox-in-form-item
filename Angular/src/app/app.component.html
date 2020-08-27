@@ -2,7 +2,7 @@
   <dxi-item dataField="owner">
     <dxi-validation-rule type="required"></dxi-validation-rule>
   </dxi-item>
-  <dxi-item dataField="status" template="statusTemplate"></dxi-item>
+  <dxi-item dataField="status" [isRequired]="true" template="statusTemplate"></dxi-item>
   <dxi-item itemType="button" horizontalAlignment="left"
     [buttonOptions]="{ text: 'Validate', type: 'success', onClick: validateClick }"></dxi-item>
 
