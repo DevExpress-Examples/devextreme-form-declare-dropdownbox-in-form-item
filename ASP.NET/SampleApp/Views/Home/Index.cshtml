@@ -51,7 +51,7 @@
     function validateClick(e) {
         var validationResult = DevExpress.validationEngine.validateGroup("formGroup");
         if (!validationResult.isValid)
-            alert("dxForm is invalid");
+            DevExpress.ui.notify("The form is invalid", "error");
     }
 
     var statuses = [
