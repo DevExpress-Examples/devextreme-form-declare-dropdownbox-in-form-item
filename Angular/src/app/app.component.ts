@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Service, Status } from './app.service';
 
 import validationEngine from "devextreme/ui/validation_engine";
-
+import notify from "devextreme/ui/notify";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,6 +27,6 @@ export class AppComponent {
     let validationResult = validationEngine.validateGroup("formGroup");
 
     if (!validationResult.isValid)
-        alert("dxForm is invalid");
+      notify("The form is invalid.", "error");
   }
 }
