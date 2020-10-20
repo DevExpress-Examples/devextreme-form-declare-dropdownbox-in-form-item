@@ -1,6 +1,8 @@
 <template>
   <DxForm :form-data="employee" validation-group="formGroup">
-      <DxItem data-field="Owner" />
+      <DxItem data-field="Owner">
+        <DxRequiredRule />
+      </DxItem>
       <DxItem data-field="Status" :is-required="true" template="statusTemplate" />
       <DxItem item-type="button" horizontal-alignment="left"
         :button-options="{ text: 'Validate', type: 'success', onClick: validateClick }" />
@@ -42,6 +44,7 @@ import {
 } from 'devextreme-vue/validator';
 import validationEngine from "devextreme/ui/validation_engine";
 import service from './data.js';
+import notify from "devextreme/ui/notify";
 
 export default  {
   name: "App",
@@ -64,7 +67,7 @@ export default  {
     validateClick() {
       let validationResult = validationEngine.validateGroup("formGroup");
       if (!validationResult.isValid)
-          alert("dxForm is invalid");
+          notify("The form is invalid.", "error");
       }
   }
 };
