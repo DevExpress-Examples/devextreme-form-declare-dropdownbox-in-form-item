@@ -36,7 +36,6 @@
         .SelectedRowKeys(new JS(@"[component.option(""value"")]"))
         .OnSelectionChanged(@<text>
             function(selectedItems) {
-                var keys = selectedItems.selectedRowKeys;
                 component.option("value", selectedItems.selectedRowKeys[0]);
             }
         </text>)
