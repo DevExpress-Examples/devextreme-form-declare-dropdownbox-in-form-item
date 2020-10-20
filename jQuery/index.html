@@ -82,7 +82,9 @@
                                 "formGroup"
                             );
 
-                            if (!validationResult.isValid) alert("dxForm is invalid");
+                            if (!validationResult.isValid)
+                                DevExpress.ui.notify("The form is invalid", "error");
+
                         }
                     }
                 }
