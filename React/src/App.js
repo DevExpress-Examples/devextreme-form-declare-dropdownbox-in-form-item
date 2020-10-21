@@ -53,7 +53,7 @@ function App() {
                 dataSource={statuses}
                 height={250}
                 keyExpr="id"
-                selectedRowKeys={employee.status}
+                selectedRowKeys={[employee.status]}
                 onSelectionChanged={onDropDownValueChanged}>
                   <Selection mode="single" />
               </DataGrid>
@@ -74,5 +74,7 @@ function validateClick(){
   let validationResult = validationEngine.validateGroup("formGroup");
 
   if (!validationResult.isValid)
-      notify("The Form is invalid.", "error");
+    notify("The Form is invalid.", "error");
+  else
+    notify("Validation successful!", "success")
 }
