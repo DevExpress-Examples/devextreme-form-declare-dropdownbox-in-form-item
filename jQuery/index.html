@@ -55,7 +55,7 @@
                                         height: 250,
                                         keyExpr: "id",
                                         selection: { mode: "single" },
-                                        selectedRowKeys: value,
+                                        selectedRowKeys: [value],
                                         onSelectionChanged: function (e) {
                                             component.option("value", e.selectedRowKeys[0]);
                                         }
