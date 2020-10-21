@@ -28,5 +28,7 @@ export class AppComponent {
 
     if (!validationResult.isValid)
       notify("The form is invalid.", "error");
+    else 
+      notify("Validation successful!", "success");
   }
 }
