@@ -67,8 +67,10 @@ export default  {
     validateClick() {
       let validationResult = validationEngine.validateGroup("formGroup");
       if (!validationResult.isValid)
-          notify("The form is invalid.", "error");
-      }
+        notify("The form is invalid.", "error");
+      else 
+        notify("Validation successful!", "success");
+    }
   }
 };
 </script>
