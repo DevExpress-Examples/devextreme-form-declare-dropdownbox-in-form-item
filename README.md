@@ -20,13 +20,14 @@ Here, a Form item includes a DropDownBox editor with an embedded DataGrid. To im
     - [app.component.html](Angular/src/app/app.component.html)
     - [app.component.ts](Angular/src/app/app.component.ts)
 - **jQuery**
-    - [index.html](jQuery/index.html)
+    - [index.html](jQuery/src/index.html)
+    - [index.js](jQuery/src/index.js)
 - **React**
-    - [App.js](React/src/App.jsx)
+    - [App.tsx](React/src/App.tsx)
 - **Vue**
-    - [App.vue](Vue/src/App.vue)
-- **ASP.NET**    
-    - [Index.cshtml](ASP.NET/SampleApp/Views/Home/Index.cshtml)
+    - [HomeContent.vue](Vue/src/components/HomeContent.vue)
+- **ASP.NET Core**    
+    - [Index.cshtml](ASP.NET%20Core/Views/Home/Index.cshtml)
 
 ## Documentation
 
