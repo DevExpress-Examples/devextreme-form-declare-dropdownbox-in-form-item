@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import 'devextreme/dist/css/dx.material.blue.light.compact.css';
-import { type ButtonTypes } from 'devextreme-vue/button';
+import { type DxButtonTypes } from 'devextreme-vue/button';
 import { DxForm, DxItem } from 'devextreme-vue/form';
 import DxDropDownBox from 'devextreme-vue/drop-down-box';
 import { DxDataGrid, DxSelection, type DxDataGridTypes } from 'devextreme-vue/data-grid';
@@ -13,7 +13,7 @@ import validationEngine from 'devextreme/ui/validation_engine';
 import { employee, statuses, type Employee } from '../data';
 import notify from 'devextreme/ui/notify';
 
-const dropDownBoxRef = ref<DxDropDownBox>(null);
+const dropDownBoxRef = ref<DxDropDownBox | null>(null);
 
 const formData = ref<Employee>(employee);
 
@@ -25,11 +25,11 @@ const selectedRowKeys = computed(() => {
 const onSelectionChanged = (e: DxDataGridTypes.SelectionChangedEvent) => {
   formData.value.status = e.selectedRowKeys[0];
   if (e.selectedRowKeys.length > 0) {
-    dropDownBoxRef.value?.instance.close();
+    dropDownBoxRef.value?.instance?.close();
   }
 };
 
-const validateBtnOptions: ButtonTypes.Properties = {
+const validateBtnOptions: DxButtonTypes.Properties = {
   text: 'Validate',
   elementAttr: { id: 'button' },
   type: 'success',
