@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   DxDataGridModule,
   DxDropDownBoxComponent,
@@ -18,6 +18,7 @@ import { Employee, Service, Status } from './app.service';
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [DxFormModule, DxDropDownBoxModule, DxDataGridModule, DxValidatorModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [Service],
 })
 export class AppComponent {
